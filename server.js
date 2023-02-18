@@ -1,6 +1,6 @@
-const express = require('express');
-const { readAndAppend } = require('../../UW-VIRT-FSF-PT-10-2022-U-LOLC-main/11-Express/01-Activities/28-Stu_Mini-Project/Main/helpers/fsUtils');
-const database = require('./db/db.json');
+const express = require('express'); 
+const path = require('path');
+const apiRoutes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 
@@ -10,12 +10,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+app.use('/api', apiRoutes);
+
 app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+  res.sendFile(path.join(__dirname, 'public/index.html'))
 );
 
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
+  res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 
 app.listen(PORT, function () {
